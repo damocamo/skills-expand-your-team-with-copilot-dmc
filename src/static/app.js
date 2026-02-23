@@ -573,13 +573,13 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="social-share-container">
         <span class="share-label">Share:</span>
-        <a href="#" class="social-share-button twitter" data-activity="${name}" title="Share on Twitter">
+        <a href="#" class="social-share-button twitter" data-activity="${name}" title="Share on Twitter" aria-label="Share ${name} on Twitter" role="button">
           𝕏
         </a>
-        <a href="#" class="social-share-button facebook" data-activity="${name}" title="Share on Facebook">
+        <a href="#" class="social-share-button facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share ${name} on Facebook" role="button">
           f
         </a>
-        <a href="#" class="social-share-button linkedin" data-activity="${name}" title="Share on LinkedIn">
+        <a href="#" class="social-share-button linkedin" data-activity="${name}" title="Share on LinkedIn" aria-label="Share ${name} on LinkedIn" role="button">
           in
         </a>
       </div>
