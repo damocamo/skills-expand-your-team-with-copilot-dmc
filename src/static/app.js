@@ -571,6 +571,18 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="social-share-container">
+        <span class="share-label">Share:</span>
+        <a href="#" class="social-share-button twitter" data-activity="${name}" title="Share on Twitter">
+          𝕏
+        </a>
+        <a href="#" class="social-share-button facebook" data-activity="${name}" title="Share on Facebook">
+          f
+        </a>
+        <a href="#" class="social-share-button linkedin" data-activity="${name}" title="Share on LinkedIn">
+          in
+        </a>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -589,7 +601,50 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Add click handlers for social sharing buttons
+    const shareButtons = activityCard.querySelectorAll(".social-share-button");
+    shareButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const activityName = button.dataset.activity;
+        const platform = button.classList.contains("twitter")
+          ? "twitter"
+          : button.classList.contains("facebook")
+          ? "facebook"
+          : "linkedin";
+        shareActivity(activityName, platform, details);
+      });
+    });
+
     activitiesList.appendChild(activityCard);
+  }
+
+  // Function to handle social sharing
+  function shareActivity(activityName, platform, details) {
+    const pageUrl = window.location.href.split("?")[0]; // Get base URL without query params
+    const formattedSchedule = formatSchedule(details);
+    const shareText = `Check out ${activityName} at Mergington High School! ${formattedSchedule}`;
+    const encodedText = encodeURIComponent(shareText);
+    const encodedUrl = encodeURIComponent(pageUrl);
+
+    let shareUrl;
+
+    switch (platform) {
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
+        break;
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+        break;
+      case "linkedin":
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+        break;
+      default:
+        return;
+    }
+
+    // Open share URL in a new window
+    window.open(shareUrl, "_blank", "width=600,height=400");
   }
 
   // Event listeners for search and filter
